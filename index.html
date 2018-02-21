@@ -11,7 +11,7 @@
     }
 
     async function displayGreeting() {
-        const { who } = await (await fetch("/data.json")).json()
+        const { who } = await (await fetch("data.json")).json()
         document.getElementById("greeting").innerHTML = "Hello, " + who
     }
 
