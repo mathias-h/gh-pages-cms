@@ -4,18 +4,21 @@
 <input type="text" id="who">
 <button onclick="updateValue()"></button>
 
+<!-- <script src="https://unpkg.com/github-api/dist/GitHub.min.js"></script> -->
+<script src="https://unpkg.com/github-api/dist/GitHub.bundle.min.js"></script>
+<script src="./github-api.js"></script>
 <script>
-    function updateValue() {
-        const who = document.getElementById("who")
-        console.log(who)
+    const githubApi = new createGithubApi({ token: "c0a1b40b9065f7ed2027c6e6a7fa9e6c59232900" })
+    async function updateValue() {
+        const who = document.getElementById("who").value
+        const repo = await githubApi.getRepo("mathias-h", "gh-pages-cms")
+        await githubApi.changeFile(repo, "master", "data.json", JSON.stringify({ who }), "auto change")
     }
 
     async function displayGreeting() {
-        const { who } = await (await fetch("data.json")).json()
+        const { who } = await (await fetch("./data.json")).json()
         document.getElementById("greeting").innerHTML = "Hello, " + who
     }
 
     displayGreeting()
-
-    // https://medium.freecodecamp.org/pushing-a-list-of-files-to-the-github-with-javascript-b724c8c09b66
 </script>
