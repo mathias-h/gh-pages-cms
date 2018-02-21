@@ -1,0 +1,21 @@
+<h2 id="greeting"></h2>
+
+<p>who would you like to greet?</p>
+<input type="text" id="who">
+<button onclick="updateValue()"></button>
+
+<script>
+    function updateValue() {
+        const who = document.getElementById("who")
+        console.log(who)
+    }
+
+    async function displayGreeting() {
+        const { who } = await (await fetch("/data.json")).json()
+        document.getElementById("greeting").innerHTML = "Hello, " + who
+    }
+
+    displayGreeting()
+
+    // https://medium.freecodecamp.org/pushing-a-list-of-files-to-the-github-with-javascript-b724c8c09b66
+</script>
